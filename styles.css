@@ -124,19 +124,24 @@ header{
 .hero-art{
   aspect-ratio:1/1.05;
   border-radius:28px;
-  background:
-    linear-gradient(160deg, var(--forest) 0%, var(--forest-dark) 100%);
+  background:linear-gradient(160deg, var(--forest) 0%, var(--forest-dark) 100%);
   position:relative;
   overflow:hidden;
   box-shadow:var(--shadow);
 }
+.hero-art img{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover; object-position:top center;
+}
 .hero-art::before{
   content:"";
-  position:absolute; inset:0;
+  position:absolute; inset:0; z-index:1;
   background-image:
     radial-gradient(circle at 20% 20%, rgba(255,255,255,.08) 0, transparent 40%),
-    radial-gradient(circle at 80% 75%, rgba(173,127,53,.35) 0, transparent 45%);
+    linear-gradient(180deg, rgba(38,47,26,0) 45%, rgba(35,42,26,.92) 100%);
 }
+.hero-art .art-label{z-index:2;}
 .hero-art .art-label{
   position:absolute; bottom:26px; left:26px; right:26px;
   color:var(--gold-soft);
@@ -178,6 +183,25 @@ section{padding:88px 0;}
 .pilar-icon svg{width:26px; height:26px; color:var(--forest);}
 .pilar h3{font-size:1.22rem; margin-bottom:10px;}
 .pilar p{color:var(--ink-soft); font-size:.98rem; margin:0;}
+
+/* Banner photo */
+.banner-photo{padding:0;}
+.banner-photo figure{
+  position:relative; margin:0;
+  border-radius:28px; overflow:hidden;
+  aspect-ratio:21/9;
+  box-shadow:var(--shadow);
+}
+.banner-photo img{width:100%; height:100%; object-fit:cover; object-position:50% 25%;}
+.banner-photo figcaption{
+  position:absolute; left:0; right:0; bottom:0;
+  padding:36px 44px;
+  background:linear-gradient(0deg, rgba(35,42,26,.85) 0%, transparent 100%);
+  color:var(--white);
+  font-family:'Fraunces', serif;
+  font-size:clamp(1.3rem, 2.6vw, 1.9rem);
+  max-width:60ch;
+}
 
 /* Diferencial (comparison) */
 .diferencial{display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; background:var(--white);}
@@ -269,6 +293,8 @@ footer{
 @media (max-width: 900px){
   .hero .wrap{grid-template-columns:1fr;}
   .hero-art{order:-1; max-width:360px; margin:0 auto;}
+  .banner-photo figure{aspect-ratio:4/5; border-radius:20px;}
+  .banner-photo figcaption{padding:24px;}
   .pilares{grid-template-columns:repeat(2,1fr);}
   .diferencial{grid-template-columns:1fr;}
   .bio{grid-template-columns:1fr;}
