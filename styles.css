@@ -255,6 +255,30 @@ section{padding:88px 0;}
   max-width:56ch; margin:34px auto 0;
 }
 
+/* Links page */
+.links-hero{padding-top:56px;}
+.linklist{
+  max-width:640px; margin:0 auto;
+  display:flex; flex-direction:column; gap:14px;
+}
+.linkitem{
+  display:flex; align-items:center; justify-content:space-between;
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:22px 26px;
+  text-decoration:none;
+  font-family:'Fraunces', serif;
+  font-size:1.15rem;
+  font-weight:560;
+  color:var(--forest-dark);
+  transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+.linkitem svg{width:20px; height:20px; color:var(--ink-soft); flex-shrink:0;}
+.linkitem:hover{transform:translateX(4px); box-shadow:var(--shadow); border-color:var(--gold);}
+.linkitem-destaque{background:var(--forest); color:var(--white); border-color:var(--forest);}
+.linkitem-destaque svg{color:var(--gold-soft);}
+
 /* Planner band */
 .planner-band{padding:0;}
 .planner-card{
