@@ -380,6 +380,8 @@ footer{
 .cookie-banner p{margin:0; font-size:.9rem; color:#D9DCC9;}
 .cookie-banner a{color:var(--gold-soft); text-decoration:underline;}
 .cookie-actions{display:flex; gap:10px; justify-content:flex-end;}
+.cookie-banner .btn-outline{background:transparent; border-color:#9AA08C; color:#D9DCC9;}
+.cookie-banner .btn-outline:hover{background:rgba(217,220,196,.12);}
 
 /* Responsive */
 @media (max-width: 900px){
