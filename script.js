@@ -13,8 +13,22 @@ if (navToggle && navLinks) {
   });
 }
 
-// Cookie consent (same pattern as psicologiasupernova.com.br — no pixel wired yet)
+// Cookie consent: gates Google Analytics 4 (same pattern as psicologiasupernova.com.br)
 const CONSENT_KEY = 'ss_cookie_consent';
+const GA_ID = 'G-CW7W7BD57Y';
+
+function initGA() {
+  if (window.__gaLoaded) return;
+  window.__gaLoaded = true;
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+  gtag('js', new Date());
+  gtag('config', GA_ID);
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+  document.head.appendChild(s);
+}
 
 function showCookieBanner() {
   if (document.getElementById('cookieBanner')) return;
@@ -22,7 +36,7 @@ function showCookieBanner() {
   banner.id = 'cookieBanner';
   banner.className = 'cookie-banner';
   banner.innerHTML = `
-    <p>Usamos cookies para melhorar sua experiência no site. Você pode aceitar ou recusar cookies não essenciais.</p>
+    <p>Usamos cookies para melhorar sua experiência e medir, de forma agregada, o uso do site (Google Analytics). Você pode aceitar ou recusar cookies não essenciais. <a href="https://psicologiasupernova.com.br/privacidade.html">Saiba mais</a>.</p>
     <div class="cookie-actions">
       <button type="button" class="btn btn-outline btn-sm" id="cookieDecline">Recusar</button>
       <button type="button" class="btn btn-primary btn-sm" id="cookieAccept">Aceitar</button>
@@ -32,6 +46,7 @@ function showCookieBanner() {
 
   document.getElementById('cookieAccept').addEventListener('click', () => {
     localStorage.setItem(CONSENT_KEY, 'granted');
+    initGA();
     hideCookieBanner();
   });
   document.getElementById('cookieDecline').addEventListener('click', () => {
@@ -50,12 +65,20 @@ function hideCookieBanner() {
 (function initCookieConsent() {
   let consent;
   try { consent = localStorage.getItem(CONSENT_KEY); } catch (e) { consent = null; }
-  if (consent !== 'granted' && consent !== 'denied') showCookieBanner();
+  if (consent === 'granted') initGA();
+  else if (consent !== 'denied') showCookieBanner();
 })();
 
 document.querySelectorAll('[data-cookie-settings]').forEach(link => {
   link.addEventListener('click', (e) => {
     e.preventDefault();
     showCookieBanner();
+  });
+});
+
+// Track WhatsApp CTA clicks as GA4 generate_lead
+document.querySelectorAll('a[href*="wa.me"]').forEach(link => {
+  link.addEventListener('click', () => {
+    if (typeof gtag === 'function') gtag('event', 'generate_lead', { method: 'whatsapp' });
   });
 });
